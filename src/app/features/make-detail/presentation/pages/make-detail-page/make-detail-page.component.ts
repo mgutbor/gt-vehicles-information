@@ -6,7 +6,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LoadingState } from '@app/core/domain/models';
+import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
+import { MakesActions } from '../../../../makes/state/makes.actions';
 import { VehicleModelsComponent } from '../../components/vehicle-models/vehicle-models.component';
 import { VehicleTypesComponent } from '../../components/vehicle-types/vehicle-types.component';
 import { MakeDetailViewModel } from '../../view-models/make-detail.view-model';
@@ -35,6 +37,7 @@ import { MakeDetailViewModel } from '../../view-models/make-detail.view-model';
 export class MakeDetailPageComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly store = inject(Store);
   private readonly viewModel = inject(MakeDetailViewModel);
   private readonly destroy$ = new Subject<void>();
 
@@ -42,6 +45,7 @@ export class MakeDetailPageComponent implements OnInit, OnDestroy {
   readonly LoadingState = LoadingState;
 
   private currentMakeId: number | null = null;
+  isNavigatingBack = false;
 
   ngOnInit(): void {
     // Suscribirse a los cambios de ruta
@@ -61,7 +65,16 @@ export class MakeDetailPageComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate(['/makes']);
+    // Mostrar indicador de loading durante la navegación
+    this.isNavigatingBack = true;
+
+    // Limpiar la búsqueda para resetear el estado de makes
+    this.store.dispatch(MakesActions.clearSearch());
+
+    // Navegar después de un pequeño delay para feedback visual
+    setTimeout(() => {
+      this.router.navigate(['/makes']);
+    }, 300);
   }
 
   retry(): void {

@@ -1,4 +1,14 @@
 <div class="make-detail-page">
+  <!-- Loading Overlay durante navegación de vuelta -->
+  @if (isNavigatingBack) {
+    <div class="navigation-overlay">
+      <div class="loading-content">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Loading...</p>
+      </div>
+    </div>
+  }
+
   @if (viewModel$ | async; as vm) {
     <mat-toolbar color="primary">
       <button mat-icon-button (click)="goBack()">

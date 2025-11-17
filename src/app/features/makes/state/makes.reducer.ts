@@ -114,6 +114,8 @@ export const makesReducer = createReducer(
       ...state,
       searchQuery: '',
       filteredMakeIds: Object.keys(state.entities).map((id) => Number(id)),
+      loading: true, // Activar loading temporalmente para feedback visual
+      loadingState: LoadingState.LOADING,
     })
   ),
 

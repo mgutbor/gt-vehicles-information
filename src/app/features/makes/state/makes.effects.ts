@@ -77,7 +77,8 @@ export class MakesEffects {
 
   /**
    * Effect para limpiar búsqueda
-   * Recarga todas las marcas
+   * Añade un pequeño delay para que el usuario perciba el loading
+   * y luego recarga todas las marcas
    */
   clearSearch$ = createEffect(() =>
     this.actions$.pipe(
