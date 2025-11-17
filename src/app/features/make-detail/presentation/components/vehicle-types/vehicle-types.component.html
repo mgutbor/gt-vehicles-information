@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>directions_car</mat-icon>
+      Vehicle Types
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+    } @else if (vehicleTypes().length === 0) {
+    <div class="empty-container">
+      <mat-icon>info</mat-icon>
+      <p>No vehicle types available</p>
+    </div>
+    } @else {
+    <mat-chip-set role="list" aria-label="Vehicle types">
+      @for (type of vehicleTypes(); track type.vehicleType.id) {
+      <mat-chip role="listitem">
+        {{ type.vehicleType.name }}
+      </mat-chip>
+      }
+    </mat-chip-set>
+    }
+  </mat-card-content>
+</mat-card>

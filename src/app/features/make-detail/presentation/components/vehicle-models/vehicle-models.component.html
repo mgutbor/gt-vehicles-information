@@ -1,0 +1,55 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>list</mat-icon>
+      Vehicle Models
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- Year Filter -->
+    <div class="year-filter">
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by year</mat-label>
+        <mat-select
+          [value]="selectedYear()"
+          (selectionChange)="onYearChange($event.value)"
+          [disabled]="loading()"
+        >
+          <mat-option [value]="null">All years</mat-option>
+          @for (year of availableYears; track year) {
+          <mat-option [value]="year">{{ year }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+    } @else if (models().length === 0) {
+    <div class="empty-container">
+      <mat-icon>info</mat-icon>
+      <p>No models available</p>
+    </div>
+    } @else {
+    <div class="models-info">
+      <span>{{ models().length }} models found</span>
+    </div>
+
+    <cdk-virtual-scroll-viewport [itemSize]="56" class="models-viewport">
+      <mat-list>
+        @for (model of models(); track model.id) {
+        <mat-list-item>
+          <div class="model-content">
+            <span class="model-name">{{ model.modelName }}</span>
+            <span class="model-id">ID: {{ model.id }}</span>
+          </div>
+        </mat-list-item>
+        }
+      </mat-list>
+    </cdk-virtual-scroll-viewport>
+    }
+  </mat-card-content>
+</mat-card>

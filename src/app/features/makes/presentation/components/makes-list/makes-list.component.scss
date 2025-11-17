@@ -1,0 +1,109 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.list-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-container,
+.error-container,
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.error-container mat-icon,
+.empty-container mat-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  opacity: 0.5;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 0.5rem;
+}
+
+.results-info {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+  background: white;
+  z-index: 1;
+}
+
+.virtual-scroll-viewport {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+// IMPORTANTE: Estilos para los items del virtual scroll
+::ng-deep {
+  .cdk-virtual-scroll-content-wrapper {
+    width: 100%;
+  }
+}
+
+mat-list {
+  padding: 0 !important;
+}
+
+.make-item {
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 0 !important;
+}
+
+.make-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.make-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.make-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.make-name {
+  font-weight: 500;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.make-id {
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.chevron {
+  color: rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
