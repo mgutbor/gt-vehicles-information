@@ -12,6 +12,7 @@ export interface MakeDetailViewModelData {
   models: VehicleModel[];
   modelsLoading: boolean;
   selectedYear: number | null;
+  selectedVehicleTypeId: number | null;
   error: string | null;
   hasVehicleTypes: boolean;
   hasModels: boolean;

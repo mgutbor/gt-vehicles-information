@@ -33,9 +33,12 @@
           <!-- Vehicle Models -->
           <app-vehicle-models
             [models]="vm.models"
+            [vehicleTypes]="vm.vehicleTypes"
             [loading]="vm.modelsLoading"
             [selectedYear]="vm.selectedYear"
+            [selectedVehicleTypeId]="vm.selectedVehicleTypeId"
             (yearSelected)="onYearSelected($event)"
+            (vehicleTypeSelected)="onVehicleTypeSelected($event)"
           />
         </div>
       }

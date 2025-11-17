@@ -41,6 +41,9 @@ export interface NhtsaModelDto {
   Make_Name: string;
   Model_ID: number;
   Model_Name: string;
+  VehicleTypeId?: number;
+  VehicleTypeID?: number;
+  VehicleTypeName?: string;
 }
 
 /**

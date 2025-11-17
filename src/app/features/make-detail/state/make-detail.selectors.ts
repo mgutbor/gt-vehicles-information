@@ -59,6 +59,11 @@ export const selectModelsError = createSelector(selectModelsState, (state) => st
 
 export const selectSelectedYear = createSelector(selectModelsState, (state) => state.selectedYear);
 
+export const selectSelectedVehicleTypeId = createSelector(
+  selectModelsState,
+  (state) => state.selectedVehicleTypeId
+);
+
 /**
  * Combined ViewModel selector
  */
@@ -70,8 +75,9 @@ export const selectMakeDetailViewModel = createSelector(
   selectAllModels,
   selectModelsLoading,
   selectSelectedYear,
+  selectSelectedVehicleTypeId,
   selectMakeDetailError,
-  (make, loadingState, vehicleTypes, typesLoading, models, modelsLoading, selectedYear, error) => ({
+  (make, loadingState, vehicleTypes, typesLoading, models, modelsLoading, selectedYear, selectedVehicleTypeId, error) => ({
     make,
     loadingState,
     vehicleTypes,
@@ -79,6 +85,7 @@ export const selectMakeDetailViewModel = createSelector(
     models,
     modelsLoading,
     selectedYear,
+    selectedVehicleTypeId,
     error,
     hasVehicleTypes: vehicleTypes.length > 0,
     hasModels: models.length > 0,

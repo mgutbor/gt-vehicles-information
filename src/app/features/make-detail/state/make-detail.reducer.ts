@@ -18,6 +18,7 @@ export interface ModelsState extends EntityState<VehicleModel> {
   loading: boolean;
   error: string | null;
   selectedYear: number | null;
+  selectedVehicleTypeId: number | null;
 }
 
 /**
@@ -60,6 +61,7 @@ export const initialState: MakeDetailState = {
     loading: false,
     error: null,
     selectedYear: null,
+    selectedVehicleTypeId: null,
   }),
 };
 
@@ -145,6 +147,7 @@ export const makeDetailReducer = createReducer(
         loading: true,
         error: null,
         selectedYear: null,
+        selectedVehicleTypeId: null,
       },
     })
   ),
@@ -158,6 +161,7 @@ export const makeDetailReducer = createReducer(
         loading: false,
         error: null,
         selectedYear: null,
+        selectedVehicleTypeId: null,
       },
     })
   ),
@@ -184,6 +188,7 @@ export const makeDetailReducer = createReducer(
         loading: true,
         error: null,
         selectedYear: year,
+        selectedVehicleTypeId: null,
       },
     })
   ),
@@ -202,6 +207,45 @@ export const makeDetailReducer = createReducer(
 
   on(
     MakeDetailActions.loadModelsByYearFailure,
+    (state, { error }): MakeDetailState => ({
+      ...state,
+      models: {
+        ...state.models,
+        loading: false,
+        error,
+      },
+    })
+  ),
+
+  // Load Models by Vehicle Type
+  on(
+    MakeDetailActions.loadModelsByVehicleType,
+    (state, { vehicleTypeId }): MakeDetailState => ({
+      ...state,
+      models: {
+        ...state.models,
+        loading: true,
+        error: null,
+        selectedYear: null,
+        selectedVehicleTypeId: vehicleTypeId,
+      },
+    })
+  ),
+
+  on(
+    MakeDetailActions.loadModelsByVehicleTypeSuccess,
+    (state, { models }): MakeDetailState => ({
+      ...state,
+      models: {
+        ...modelsAdapter.setAll(models, state.models),
+        loading: false,
+        error: null,
+      },
+    })
+  ),
+
+  on(
+    MakeDetailActions.loadModelsByVehicleTypeFailure,
     (state, { error }): MakeDetailState => ({
       ...state,
       models: {

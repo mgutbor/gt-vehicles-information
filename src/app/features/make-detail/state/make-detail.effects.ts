@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import {
   GET_MAKE_BY_ID_USE_CASE,
   GET_MODELS_FOR_YEAR_USE_CASE,
+  GET_MODELS_FOR_VEHICLE_TYPE_USE_CASE,
   GET_MODELS_USE_CASE,
   GET_VEHICLE_TYPES_USE_CASE,
 } from '@app/core/domain/ports/inbound';
@@ -20,6 +21,7 @@ export class MakeDetailEffects {
   private readonly getVehicleTypesUseCase = inject(GET_VEHICLE_TYPES_USE_CASE);
   private readonly getModelsUseCase = inject(GET_MODELS_USE_CASE);
   private readonly getModelsForYearUseCase = inject(GET_MODELS_FOR_YEAR_USE_CASE);
+  private readonly getModelsForVehicleTypeUseCase = inject(GET_MODELS_FOR_VEHICLE_TYPE_USE_CASE);
 
   /**
    * Effect para cargar detalles de la marca
@@ -113,6 +115,27 @@ export class MakeDetailEffects {
             of(
               MakeDetailActions.loadModelsByYearFailure({
                 error: error.message || 'Failed to load models by year',
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  /**
+   * Effect para cargar modelos por tipo de vehículo
+   */
+  loadModelsByVehicleType$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MakeDetailActions.loadModelsByVehicleType),
+      switchMap(({ makeId, vehicleTypeId }) =>
+        this.getModelsForVehicleTypeUseCase.execute(makeId, vehicleTypeId).pipe(
+          map((models) => MakeDetailActions.loadModelsByVehicleTypeSuccess({ models })),
+          catchError((error) =>
+            of(
+              MakeDetailActions.loadModelsByVehicleTypeFailure({
+                error: error.message || 'Failed to load models by vehicle type',
               })
             )
           )

@@ -27,6 +27,11 @@ export const MakeDetailActions = createActionGroup({
     'Load Models By Year Success': props<{ models: VehicleModel[] }>(),
     'Load Models By Year Failure': props<{ error: string }>(),
 
+    // Load Models by Vehicle Type
+    'Load Models By Vehicle Type': props<{ makeId: number; vehicleTypeId: number }>(),
+    'Load Models By Vehicle Type Success': props<{ models: VehicleModel[] }>(),
+    'Load Models By Vehicle Type Failure': props<{ error: string }>(),
+
     // Clear state
     'Clear Make Detail': emptyProps(),
   },

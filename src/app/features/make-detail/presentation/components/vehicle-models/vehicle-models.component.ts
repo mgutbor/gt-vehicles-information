@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { VehicleModel } from '@app/core/domain/models';
+import { MakeVehicleType, VehicleModel } from '@app/core/domain/models';
 
 /**
  * Componente para mostrar modelos de vehículos
@@ -31,15 +31,22 @@ import { VehicleModel } from '@app/core/domain/models';
 })
 export class VehicleModelsComponent {
   models = input.required<VehicleModel[]>();
+  vehicleTypes = input.required<MakeVehicleType[]>();
   loading = input<boolean>(false);
   selectedYear = input<number | null>(null);
+  selectedVehicleTypeId = input<number | null>(null);
 
   yearSelected = output<number | null>();
+  vehicleTypeSelected = output<number | null>();
 
   // Generar años disponibles (últimos 30 años)
   readonly availableYears = Array.from({ length: 30 }, (_, i) => new Date().getFullYear() - i);
 
   onYearChange(year: number | null): void {
     this.yearSelected.emit(year);
+  }
+
+  onVehicleTypeChange(vehicleTypeId: number | null): void {
+    this.vehicleTypeSelected.emit(vehicleTypeId);
   }
 }

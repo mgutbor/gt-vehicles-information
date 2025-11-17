@@ -7,8 +7,9 @@
   </mat-card-header>
 
   <mat-card-content>
-    <!-- Year Filter -->
-    <div class="year-filter">
+    <!-- Filters -->
+    <div class="filters-container">
+      <!-- Year Filter -->
       <mat-form-field appearance="outline">
         <mat-label>Filter by year</mat-label>
         <mat-select
@@ -19,6 +20,21 @@
           <mat-option [value]="null">All years</mat-option>
           @for (year of availableYears; track year) {
             <mat-option [value]="year">{{ year }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Vehicle Type Filter -->
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by vehicle type</mat-label>
+        <mat-select
+          [value]="selectedVehicleTypeId()"
+          (selectionChange)="onVehicleTypeChange($event.value)"
+          [disabled]="loading()"
+        >
+          <mat-option [value]="null">All types</mat-option>
+          @for (type of vehicleTypes(); track type.vehicleType.id) {
+            <mat-option [value]="type.vehicleType.id">{{ type.vehicleType.name }}</mat-option>
           }
         </mat-select>
       </mat-form-field>

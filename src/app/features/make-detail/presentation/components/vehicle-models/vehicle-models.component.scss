@@ -8,12 +8,17 @@ mat-card-title {
   gap: 0.5rem;
 }
 
-.year-filter {
+.filters-container {
+  display: flex;
+  gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-.year-filter mat-form-field {
-  width: 200px;
+.filters-container mat-form-field {
+  min-width: 200px;
+  flex: 1;
+  max-width: 300px;
 }
 
 .loading-container,

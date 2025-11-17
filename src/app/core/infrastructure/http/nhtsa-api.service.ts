@@ -74,6 +74,29 @@ export class NhtsaApiService {
   }
 
   /**
+   * Obtiene los modelos para una marca y tipo de vehículo específicos
+   * La API NHTSA requiere formato: /GetModelsForMakeIdYear/makeId/{makeId}/vehicletype/{vehicleType}
+   * Opcionalmente se puede especificar el año: /GetModelsForMakeIdYear/makeId/{makeId}/modelyear/{year}/vehicletype/{vehicleType}
+   */
+  getModelsForMakeVehicleType(
+    makeId: number,
+    vehicleTypeName: string,
+    year?: number
+  ): Observable<NhtsaModelsResponse> {
+    let url: string;
+    
+    if (year) {
+      url = `${this.config.baseUrl}/GetModelsForMakeIdYear/makeId/${makeId}/modelyear/${year}/vehicletype/${vehicleTypeName}?format=${this.config.defaultFormat}`;
+    } else {
+      url = `${this.config.baseUrl}/GetModelsForMakeIdYear/makeId/${makeId}/vehicletype/${vehicleTypeName}?format=${this.config.defaultFormat}`;
+    }
+
+    return this.http
+      .get<NhtsaModelsResponse>(url)
+      .pipe(timeout(this.config.timeout), retry(2), catchError(this.handleError));
+  }
+
+  /**
    * Manejo centralizado de errores HTTP
    */
   private handleError(error: HttpErrorResponse): Observable<never> {

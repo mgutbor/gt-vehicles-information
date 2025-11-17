@@ -153,4 +153,45 @@ export class VehicleRepositoryImpl implements VehicleRepository {
       })
     );
   }
+
+  getModelsForMakeVehicleType(makeId: number, vehicleTypeId: number): Observable<VehicleModel[]> {
+    // La API NHTSA requiere el nombre del tipo de vehículo, no el ID
+    // Por lo tanto, primero obtenemos los tipos de vehículo para obtener el nombre
+    const cacheKey = `vehicle:models:${makeId}:type:${vehicleTypeId}`;
+
+    return this.cache.get<VehicleModel[]>(cacheKey).pipe(
+      switchMap((cached) => {
+        if (cached) {
+          return [cached];
+        }
+
+        // Primero obtenemos los tipos de vehículo para esta marca para obtener el nombre
+        return this.getVehicleTypesForMake(makeId).pipe(
+          switchMap((vehicleTypes) => {
+            // Encontrar el tipo de vehículo seleccionado
+            const selectedType = vehicleTypes.find((vt) => vt.vehicleType.id === vehicleTypeId);
+            
+            if (!selectedType) {
+              // Si no encontramos el tipo, devolvemos un array vacío
+              return [[]];
+            }
+            
+            // Normalizar el nombre del tipo para la API (convertir a minúsculas)
+            // La API acepta el nombre con espacios
+            const vehicleTypeName = selectedType.vehicleType.name.toLowerCase();
+
+            // Llamar a la API con el nombre del tipo de vehículo SIN especificar año
+            // para obtener todos los modelos de ese tipo
+            return this.apiService.getModelsForMakeVehicleType(makeId, vehicleTypeName).pipe(
+              map((response) => NhtsaVehicleAdapter.toVehicleModels(response.Results)),
+              tap((models) => {
+                this.cache.set(cacheKey, models, 20 * 60 * 1000); // 20 minutos
+              }),
+              shareReplay(1)
+            );
+          })
+        );
+      })
+    );
+  }
 }

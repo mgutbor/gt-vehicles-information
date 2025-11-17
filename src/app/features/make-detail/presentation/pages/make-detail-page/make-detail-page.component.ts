@@ -79,4 +79,14 @@ export class MakeDetailPageComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  onVehicleTypeSelected(vehicleTypeId: number | null): void {
+    if (this.currentMakeId) {
+      if (vehicleTypeId === null) {
+        this.viewModel.loadModels(this.currentMakeId);
+      } else {
+        this.viewModel.loadModelsByVehicleType(this.currentMakeId, vehicleTypeId);
+      }
+    }
+  }
 }

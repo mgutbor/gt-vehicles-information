@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { GetMakeByIdUseCase, GetMakesUseCase, SearchMakesUseCase } from './get-makes.usecase';
-import { GetModelsForYearUseCase, GetModelsUseCase } from './get-models.usecase';
+import { GetModelsForYearUseCase, GetModelsUseCase, GetModelsForVehicleTypeUseCase } from './get-models.usecase';
 import { GetVehicleTypesUseCase } from './get-vehicle-types.usecase';
 
 /**
@@ -22,4 +22,8 @@ export const GET_MODELS_USE_CASE = new InjectionToken<GetModelsUseCase>('GetMode
 
 export const GET_MODELS_FOR_YEAR_USE_CASE = new InjectionToken<GetModelsForYearUseCase>(
   'GetModelsForYearUseCase'
+);
+
+export const GET_MODELS_FOR_VEHICLE_TYPE_USE_CASE = new InjectionToken<GetModelsForVehicleTypeUseCase>(
+  'GetModelsForVehicleTypeUseCase'
 );

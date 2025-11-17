@@ -49,6 +49,10 @@ export class MakeDetailViewModel {
     this.store.dispatch(MakeDetailActions.loadModelsByYear({ makeId, year }));
   }
 
+  loadModelsByVehicleType(makeId: number, vehicleTypeId: number): void {
+    this.store.dispatch(MakeDetailActions.loadModelsByVehicleType({ makeId, vehicleTypeId }));
+  }
+
   clearMakeDetail(): void {
     this.store.dispatch(MakeDetailActions.clearMakeDetail());
   }

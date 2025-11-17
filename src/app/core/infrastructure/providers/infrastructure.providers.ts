@@ -11,6 +11,7 @@ import {
   GET_MAKE_BY_ID_USE_CASE,
   GET_MAKES_USE_CASE,
   GET_MODELS_FOR_YEAR_USE_CASE,
+  GET_MODELS_FOR_VEHICLE_TYPE_USE_CASE,
   GET_MODELS_USE_CASE,
   GET_VEHICLE_TYPES_USE_CASE,
   SEARCH_MAKES_USE_CASE,
@@ -20,6 +21,7 @@ import {
   GetMakeByIdUseCaseImpl,
   GetMakesUseCaseImpl,
   GetModelsForYearUseCaseImpl,
+  GetModelsForVehicleTypeUseCaseImpl,
   GetModelsUseCaseImpl,
   GetVehicleTypesUseCaseImpl,
   SearchMakesUseCaseImpl,
@@ -73,6 +75,10 @@ export function provideInfrastructure(): EnvironmentProviders {
     {
       provide: GET_MODELS_FOR_YEAR_USE_CASE,
       useClass: GetModelsForYearUseCaseImpl,
+    },
+    {
+      provide: GET_MODELS_FOR_VEHICLE_TYPE_USE_CASE,
+      useClass: GetModelsForVehicleTypeUseCaseImpl,
     },
   ]);
 }

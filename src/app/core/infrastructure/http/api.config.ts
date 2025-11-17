@@ -5,6 +5,7 @@ export const NHTSA_API_CONFIG = {
     getVehicleTypesForMake: '/GetVehicleTypesForMakeId',
     getModelsForMake: '/GetModelsForMakeId',
     getModelsForMakeYear: '/GetModelsForMakeYear/makeId', // Formato especial para año
+    getModelsForMakeIdYearVehicleType: '/GetModelsForMakeIdYear/makeId', // Para filtrado por tipo y año
   },
   defaultFormat: 'json',
   timeout: 30000,
