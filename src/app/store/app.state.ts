@@ -1,7 +1,4 @@
-import {
-  MakeDetailState,
-  makeDetailReducer,
-} from '@app/features/make-detail/state';
+import { MakeDetailState, makeDetailReducer } from '@app/features/make-detail/state';
 import { MakesState, makesReducer } from '@app/features/makes/state';
 import { ActionReducerMap } from '@ngrx/store';
 

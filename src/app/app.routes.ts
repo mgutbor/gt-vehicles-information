@@ -13,10 +13,10 @@ export const routes: Routes = [
   {
     path: 'makes',
     loadComponent: () =>
-      import(
-        './features/makes/presentation/pages/makes-page/makes-page.component'
-      ).then((m) => m.MakesPageComponent),
-    title: 'Vehicle Makes',
+      import('./features/makes/presentation/pages/makes-page/makes-page.component').then(
+        (m) => m.MakesPageComponent
+      ),
+    title: 'GT Vehicle Information',
   },
   {
     path: 'makes/:id',

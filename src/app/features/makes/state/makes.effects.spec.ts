@@ -2,18 +2,21 @@ import { TestBed } from '@angular/core/testing';
 import { VehicleMake } from '@app/core/domain/models';
 import {
   GET_MAKES_USE_CASE,
+  GetMakesUseCase,
   SEARCH_MAKES_USE_CASE,
+  SearchMakesUseCase,
 } from '@app/core/domain/ports/inbound';
 import { provideMockActions } from '@ngrx/effects/testing';
+import { Action } from '@ngrx/store';
 import { Observable, of, throwError } from 'rxjs';
 import { MakesActions } from './makes.actions';
 import { MakesEffects } from './makes.effects';
 
 describe('MakesEffects', () => {
-  let actions$: Observable<any>;
+  let actions$: Observable<Action>;
   let effects: MakesEffects;
-  let getMakesUseCase: jasmine.SpyObj<any>;
-  let searchMakesUseCase: jasmine.SpyObj<any>;
+  let getMakesUseCase: jasmine.SpyObj<GetMakesUseCase>;
+  let searchMakesUseCase: jasmine.SpyObj<SearchMakesUseCase>;
 
   const mockMakes: VehicleMake[] = [
     { id: 440, name: 'AUDI' },
@@ -22,9 +25,7 @@ describe('MakesEffects', () => {
 
   beforeEach(() => {
     const getMakesSpy = jasmine.createSpyObj('GetMakesUseCase', ['execute']);
-    const searchMakesSpy = jasmine.createSpyObj('SearchMakesUseCase', [
-      'execute',
-    ]);
+    const searchMakesSpy = jasmine.createSpyObj('SearchMakesUseCase', ['execute']);
 
     TestBed.configureTestingModule({
       providers: [
@@ -36,10 +37,10 @@ describe('MakesEffects', () => {
     });
 
     effects = TestBed.inject(MakesEffects);
-    getMakesUseCase = TestBed.inject(GET_MAKES_USE_CASE) as jasmine.SpyObj<any>;
+    getMakesUseCase = TestBed.inject(GET_MAKES_USE_CASE) as jasmine.SpyObj<GetMakesUseCase>;
     searchMakesUseCase = TestBed.inject(
       SEARCH_MAKES_USE_CASE
-    ) as jasmine.SpyObj<any>;
+    ) as jasmine.SpyObj<SearchMakesUseCase>;
   });
 
   describe('loadMakes$', () => {
@@ -48,9 +49,7 @@ describe('MakesEffects', () => {
       actions$ = of(MakesActions.loadMakes());
 
       effects.loadMakes$.subscribe((action) => {
-        expect(action).toEqual(
-          MakesActions.loadMakesSuccess({ makes: mockMakes })
-        );
+        expect(action).toEqual(MakesActions.loadMakesSuccess({ makes: mockMakes }));
         done();
       });
     });
@@ -61,9 +60,7 @@ describe('MakesEffects', () => {
       actions$ = of(MakesActions.loadMakes());
 
       effects.loadMakes$.subscribe((action) => {
-        expect(action).toEqual(
-          MakesActions.loadMakesFailure({ error: 'Test error' })
-        );
+        expect(action).toEqual(MakesActions.loadMakesFailure({ error: 'Test error' }));
         done();
       });
     });
@@ -75,9 +72,7 @@ describe('MakesEffects', () => {
       actions$ = of(MakesActions.searchMakes({ query: 'AUDI' }));
 
       effects.searchMakes$.subscribe((action) => {
-        expect(action).toEqual(
-          MakesActions.searchMakesSuccess({ makes: [mockMakes[0]] })
-        );
+        expect(action).toEqual(MakesActions.searchMakesSuccess({ makes: [mockMakes[0]] }));
         done();
       });
     });

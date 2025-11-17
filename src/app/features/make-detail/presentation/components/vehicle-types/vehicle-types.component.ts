@@ -13,13 +13,7 @@ import { MakeVehicleType } from '@app/core/domain/models';
 @Component({
   selector: 'app-vehicle-types',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatChipsModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-  ],
+  imports: [CommonModule, MatCardModule, MatChipsModule, MatProgressSpinnerModule, MatIconModule],
   templateUrl: './vehicle-types.component.html',
   styleUrl: './vehicle-types.component.scss',
 })

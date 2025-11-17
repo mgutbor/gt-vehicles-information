@@ -24,7 +24,7 @@ export class ApiUrlBuilder {
 
     let url = `${NHTSA_API_CONFIG.baseUrl}${NHTSA_API_CONFIG.endpoints[endpoint]}`;
 
-    // Agregar parámetros de path
+    // eslint-disable-next-line
     Object.entries(pathParams).forEach(([key, value]) => {
       url += `/${value}`;
     });

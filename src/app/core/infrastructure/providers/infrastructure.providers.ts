@@ -2,10 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core';
 
 // Repositories
-import {
-  CACHE_REPOSITORY,
-  VEHICLE_REPOSITORY,
-} from '../../domain/ports/outbound';
+import { CACHE_REPOSITORY, VEHICLE_REPOSITORY } from '../../domain/ports/outbound';
 import { InMemoryCacheRepository } from '../repositories/in-memory-cache.repository';
 import { VehicleRepositoryImpl } from '../repositories/vehicle.repository.impl';
 

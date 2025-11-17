@@ -1,10 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { VehicleModel } from '../../domain/models';
-import {
-  GetModelsForYearUseCase,
-  GetModelsUseCase,
-} from '../../domain/ports/inbound';
+import { GetModelsForYearUseCase, GetModelsUseCase } from '../../domain/ports/inbound';
 import { VEHICLE_REPOSITORY } from '../../domain/ports/outbound';
 
 @Injectable({

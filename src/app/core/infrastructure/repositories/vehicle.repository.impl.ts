@@ -1,11 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import {
-  MakeVehicleType,
-  VehicleMake,
-  VehicleModel,
-} from '../../domain/models';
+import { MakeVehicleType, VehicleMake, VehicleModel } from '../../domain/models';
 import { VehicleRepository } from '../../domain/ports/outbound';
 import { NhtsaVehicleAdapter } from '../adapters/nhtsa-vehicle.adapter';
 import { NhtsaApiService } from '../http/nhtsa-api.service';
@@ -29,8 +25,7 @@ export class VehicleRepositoryImpl implements VehicleRepository {
     MAKE_BY_ID: (id: number) => `vehicle:make:${id}`,
     VEHICLE_TYPES: (makeId: number) => `vehicle:types:${makeId}`,
     MODELS: (makeId: number) => `vehicle:models:${makeId}`,
-    MODELS_YEAR: (makeId: number, year: number) =>
-      `vehicle:models:${makeId}:${year}`,
+    MODELS_YEAR: (makeId: number, year: number) => `vehicle:models:${makeId}:${year}`,
   };
 
   getAllMakes(): Observable<VehicleMake[]> {
@@ -38,16 +33,12 @@ export class VehicleRepositoryImpl implements VehicleRepository {
     return this.cache.get<VehicleMake[]>(this.CACHE_KEYS.ALL_MAKES).pipe(
       switchMap((cached) => {
         if (cached) {
-          console.log('✅ Using cached makes');
           return [cached];
         }
 
         // Si no está en caché, obtener de la API
-        console.log('🌐 Fetching makes from API');
         return this.apiService.getAllMakes().pipe(
-          map((response) =>
-            NhtsaVehicleAdapter.toVehicleMakes(response.Results)
-          ),
+          map((response) => NhtsaVehicleAdapter.toVehicleMakes(response.Results)),
           tap((makes) => {
             // Guardar en caché por 10 minutos
             this.cache.set(this.CACHE_KEYS.ALL_MAKES, makes, 10 * 60 * 1000);
@@ -89,11 +80,7 @@ export class VehicleRepositoryImpl implements VehicleRepository {
     }
 
     return this.getAllMakes().pipe(
-      map((makes) =>
-        makes.filter((make) =>
-          make.name.toLowerCase().includes(normalizedQuery)
-        )
-      )
+      map((makes) => makes.filter((make) => make.name.toLowerCase().includes(normalizedQuery)))
     );
   }
 
@@ -103,11 +90,9 @@ export class VehicleRepositoryImpl implements VehicleRepository {
     return this.cache.get<MakeVehicleType[]>(cacheKey).pipe(
       switchMap((cached) => {
         if (cached) {
-          console.log('✅ Using cached vehicle types');
           return [cached];
         }
 
-        console.log('🌐 Fetching vehicle types from API');
         return this.getMakeById(makeId).pipe(
           switchMap((make) => {
             if (!make) {
@@ -116,11 +101,7 @@ export class VehicleRepositoryImpl implements VehicleRepository {
 
             return this.apiService.getVehicleTypesForMake(makeId).pipe(
               map((response) =>
-                NhtsaVehicleAdapter.toMakeVehicleTypes(
-                  response.Results,
-                  makeId,
-                  make.name
-                )
+                NhtsaVehicleAdapter.toMakeVehicleTypes(response.Results, makeId, make.name)
               ),
               tap((types) => {
                 this.cache.set(cacheKey, types, 15 * 60 * 1000); // 15 minutos
@@ -139,15 +120,11 @@ export class VehicleRepositoryImpl implements VehicleRepository {
     return this.cache.get<VehicleModel[]>(cacheKey).pipe(
       switchMap((cached) => {
         if (cached) {
-          console.log('✅ Using cached models');
           return [cached];
         }
 
-        console.log('🌐 Fetching models from API');
         return this.apiService.getModelsForMake(makeId).pipe(
-          map((response) =>
-            NhtsaVehicleAdapter.toVehicleModels(response.Results)
-          ),
+          map((response) => NhtsaVehicleAdapter.toVehicleModels(response.Results)),
           tap((models) => {
             this.cache.set(cacheKey, models, 15 * 60 * 1000); // 15 minutos
           }),
@@ -157,24 +134,17 @@ export class VehicleRepositoryImpl implements VehicleRepository {
     );
   }
 
-  getModelsForMakeYear(
-    makeId: number,
-    year: number
-  ): Observable<VehicleModel[]> {
+  getModelsForMakeYear(makeId: number, year: number): Observable<VehicleModel[]> {
     const cacheKey = this.CACHE_KEYS.MODELS_YEAR(makeId, year);
 
     return this.cache.get<VehicleModel[]>(cacheKey).pipe(
       switchMap((cached) => {
         if (cached) {
-          console.log('✅ Using cached models for year');
           return [cached];
         }
 
-        console.log('🌐 Fetching models for year from API');
         return this.apiService.getModelsForMakeYear(makeId, year).pipe(
-          map((response) =>
-            NhtsaVehicleAdapter.toVehicleModels(response.Results)
-          ),
+          map((response) => NhtsaVehicleAdapter.toVehicleModels(response.Results)),
           tap((models) => {
             this.cache.set(cacheKey, models, 20 * 60 * 1000); // 20 minutos
           }),

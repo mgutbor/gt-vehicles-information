@@ -19,9 +19,7 @@ export class MakeDetailEffects {
   private readonly getMakeByIdUseCase = inject(GET_MAKE_BY_ID_USE_CASE);
   private readonly getVehicleTypesUseCase = inject(GET_VEHICLE_TYPES_USE_CASE);
   private readonly getModelsUseCase = inject(GET_MODELS_USE_CASE);
-  private readonly getModelsForYearUseCase = inject(
-    GET_MODELS_FOR_YEAR_USE_CASE
-  );
+  private readonly getModelsForYearUseCase = inject(GET_MODELS_FOR_YEAR_USE_CASE);
 
   /**
    * Effect para cargar detalles de la marca
@@ -68,9 +66,7 @@ export class MakeDetailEffects {
       ofType(MakeDetailActions.loadVehicleTypes),
       switchMap(({ makeId }) =>
         this.getVehicleTypesUseCase.execute(makeId).pipe(
-          map((vehicleTypes) =>
-            MakeDetailActions.loadVehicleTypesSuccess({ vehicleTypes })
-          ),
+          map((vehicleTypes) => MakeDetailActions.loadVehicleTypesSuccess({ vehicleTypes })),
           catchError((error) =>
             of(
               MakeDetailActions.loadVehicleTypesFailure({
@@ -112,9 +108,7 @@ export class MakeDetailEffects {
       ofType(MakeDetailActions.loadModelsByYear),
       switchMap(({ makeId, year }) =>
         this.getModelsForYearUseCase.execute(makeId, year).pipe(
-          map((models) =>
-            MakeDetailActions.loadModelsByYearSuccess({ models })
-          ),
+          map((models) => MakeDetailActions.loadModelsByYearSuccess({ models })),
           catchError((error) =>
             of(
               MakeDetailActions.loadModelsByYearFailure({

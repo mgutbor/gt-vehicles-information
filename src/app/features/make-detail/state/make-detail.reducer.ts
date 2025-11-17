@@ -1,9 +1,4 @@
-import {
-  LoadingState,
-  MakeVehicleType,
-  VehicleMake,
-  VehicleModel,
-} from '@app/core/domain/models';
+import { LoadingState, MakeVehicleType, VehicleMake, VehicleModel } from '@app/core/domain/models';
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { MakeDetailActions } from './make-detail.actions';
@@ -42,15 +37,13 @@ export interface MakeDetailState {
 export const vehicleTypesAdapter: EntityAdapter<MakeVehicleType> =
   createEntityAdapter<MakeVehicleType>({
     selectId: (type) => type.vehicleType.id,
-    sortComparer: (a, b) =>
-      a.vehicleType.name.localeCompare(b.vehicleType.name),
+    sortComparer: (a, b) => a.vehicleType.name.localeCompare(b.vehicleType.name),
   });
 
-export const modelsAdapter: EntityAdapter<VehicleModel> =
-  createEntityAdapter<VehicleModel>({
-    selectId: (model) => model.id,
-    sortComparer: (a, b) => a.modelName.localeCompare(b.modelName),
-  });
+export const modelsAdapter: EntityAdapter<VehicleModel> = createEntityAdapter<VehicleModel>({
+  selectId: (model) => model.id,
+  sortComparer: (a, b) => a.modelName.localeCompare(b.modelName),
+});
 
 /**
  * Estado inicial

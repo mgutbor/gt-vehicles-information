@@ -35,9 +35,7 @@ export abstract class VehicleRepository {
    * @param makeId ID de la marca
    * @returns Observable con array de tipos de vehículos
    */
-  abstract getVehicleTypesForMake(
-    makeId: number
-  ): Observable<MakeVehicleType[]>;
+  abstract getVehicleTypesForMake(makeId: number): Observable<MakeVehicleType[]>;
 
   /**
    * Obtiene todos los modelos disponibles para una marca
@@ -52,8 +50,5 @@ export abstract class VehicleRepository {
    * @param year Año del modelo
    * @returns Observable con array de modelos del año especificado
    */
-  abstract getModelsForMakeYear(
-    makeId: number,
-    year: number
-  ): Observable<VehicleModel[]>;
+  abstract getModelsForMakeYear(makeId: number, year: number): Observable<VehicleModel[]>;
 }

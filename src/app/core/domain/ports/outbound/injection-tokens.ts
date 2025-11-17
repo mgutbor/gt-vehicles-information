@@ -8,22 +8,16 @@ import { VehicleRepository } from './vehicle.repository';
  * Siguiendo el principio de Inversión de Dependencias (SOLID)
  */
 
-export const VEHICLE_REPOSITORY = new InjectionToken<VehicleRepository>(
-  'VehicleRepository',
-  {
-    providedIn: 'root',
-    factory: () => {
-      throw new Error('VehicleRepository must be provided');
-    },
-  }
-);
+export const VEHICLE_REPOSITORY = new InjectionToken<VehicleRepository>('VehicleRepository', {
+  providedIn: 'root',
+  factory: () => {
+    throw new Error('VehicleRepository must be provided');
+  },
+});
 
-export const CACHE_REPOSITORY = new InjectionToken<CacheRepository>(
-  'CacheRepository',
-  {
-    providedIn: 'root',
-    factory: () => {
-      throw new Error('CacheRepository must be provided');
-    },
-  }
-);
+export const CACHE_REPOSITORY = new InjectionToken<CacheRepository>('CacheRepository', {
+  providedIn: 'root',
+  factory: () => {
+    throw new Error('CacheRepository must be provided');
+  },
+});

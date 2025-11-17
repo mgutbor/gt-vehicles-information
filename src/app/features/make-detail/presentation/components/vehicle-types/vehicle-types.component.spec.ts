@@ -53,8 +53,7 @@ describe('VehicleTypesComponent', () => {
     fixture.componentRef.setInput('loading', false);
     fixture.detectChanges();
 
-    const emptyContainer =
-      fixture.nativeElement.querySelector('.empty-container');
+    const emptyContainer = fixture.nativeElement.querySelector('.empty-container');
     expect(emptyContainer).toBeTruthy();
     expect(emptyContainer.textContent).toContain('No vehicle types available');
   });

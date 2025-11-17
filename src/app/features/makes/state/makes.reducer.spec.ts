@@ -11,6 +11,7 @@ describe('MakesReducer', () => {
 
   describe('unknown action', () => {
     it('should return the initial state', () => {
+      // eslint-disable-next-line
       const action = { type: 'Unknown' } as any;
       const result = makesReducer(initialState, action);
 

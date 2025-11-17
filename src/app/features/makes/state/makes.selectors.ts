@@ -20,25 +20,16 @@ export const selectMakesEntities = selectEntities;
 export const selectMakesIds = selectIds;
 export const selectTotalMakes = selectTotal;
 
-export const selectMakesLoading = createSelector(
-  selectMakesState,
-  (state) => state.loading
-);
+export const selectMakesLoading = createSelector(selectMakesState, (state) => state.loading);
 
 export const selectMakesLoadingState = createSelector(
   selectMakesState,
   (state) => state.loadingState
 );
 
-export const selectMakesError = createSelector(
-  selectMakesState,
-  (state) => state.error
-);
+export const selectMakesError = createSelector(selectMakesState, (state) => state.error);
 
-export const selectSearchQuery = createSelector(
-  selectMakesState,
-  (state) => state.searchQuery
-);
+export const selectSearchQuery = createSelector(selectMakesState, (state) => state.searchQuery);
 
 /**
  * Selector memoizado para marcas filtradas

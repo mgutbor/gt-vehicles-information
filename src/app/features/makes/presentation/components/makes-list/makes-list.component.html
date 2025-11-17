@@ -1,48 +1,46 @@
 <div class="list-container">
   @if (loading()) {
-  <div class="loading-container">
-    <mat-spinner diameter="50"></mat-spinner>
-    <p>Loading vehicle makes...</p>
-  </div>
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Loading vehicle makes...</p>
+    </div>
   } @else if (error()) {
-  <div class="error-container">
-    <mat-icon color="warn">error</mat-icon>
-    <p>{{ error() }}</p>
-    <button mat-raised-button color="primary" (click)="retry.emit()">
-      Retry
-    </button>
-  </div>
+    <div class="error-container">
+      <mat-icon color="warn">error</mat-icon>
+      <p>{{ error() }}</p>
+      <button mat-raised-button color="primary" (click)="retry.emit()">Retry</button>
+    </div>
   } @else if (makes().length === 0) {
-  <div class="empty-container">
-    <mat-icon>search_off</mat-icon>
-    <p>No vehicle makes found</p>
-    @if (searchQuery()) {
-    <p class="hint">Try a different search term</p>
-    }
-  </div>
+    <div class="empty-container">
+      <mat-icon>search_off</mat-icon>
+      <p>No vehicle makes found</p>
+      @if (searchQuery()) {
+        <p class="hint">Try a different search term</p>
+      }
+    </div>
   } @else {
-  <div class="results-info">
-    <span>{{ makes().length }} makes found</span>
-  </div>
+    <div class="results-info">
+      <span>{{ makes().length }} makes found</span>
+    </div>
 
-  <cdk-virtual-scroll-viewport [itemSize]="50" class="virtual-scroll-viewport">
-    @for (make of makes(); track make.id) {
-    <mat-list-item
-      [routerLink]="['/makes', make.id]"
-      class="make-item"
-      (click)="makeSelected.emit(make)"
-    >
-      <span matListItemTitle>
-        <div class="make-content">
-          <div class="make-info">
-            <span class="make-name">{{ make.name }}</span>
-            <span class="make-id">ID: {{ make.id }}</span>
-          </div>
-          <mat-icon class="chevron">chevron_right</mat-icon>
-        </div>
-      </span>
-    </mat-list-item>
-    }
-  </cdk-virtual-scroll-viewport>
+    <cdk-virtual-scroll-viewport [itemSize]="50" class="virtual-scroll-viewport">
+      @for (make of makes(); track make.id) {
+        <mat-list-item
+          [routerLink]="['/makes', make.id]"
+          class="make-item"
+          (click)="makeSelected.emit(make)"
+        >
+          <span matListItemTitle>
+            <div class="make-content">
+              <div class="make-info">
+                <span class="make-name">{{ make.name }}</span>
+                <span class="make-id">ID: {{ make.id }}</span>
+              </div>
+              <mat-icon class="chevron">chevron_right</mat-icon>
+            </div>
+          </span>
+        </mat-list-item>
+      }
+    </cdk-virtual-scroll-viewport>
   }
 </div>

@@ -18,7 +18,7 @@ interface CacheItem<T> {
   providedIn: 'root',
 })
 export class InMemoryCacheRepository implements CacheRepository {
-  private readonly cache = new Map<string, CacheItem<any>>();
+  private readonly cache = new Map<string, CacheItem<unknown>>();
   private readonly DEFAULT_TTL = 5 * 60 * 1000; // 5 minutos por defecto
 
   set<T>(key: string, value: T, ttl?: number): void {

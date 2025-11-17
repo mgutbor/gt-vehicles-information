@@ -1,14 +1,5 @@
-import {
-  MakeVehicleType,
-  VehicleMake,
-  VehicleModel,
-  VehicleType,
-} from '../../domain/models';
-import {
-  NhtsaMakeDto,
-  NhtsaModelDto,
-  NhtsaVehicleTypeDto,
-} from '../http/dtos/nhtsa-api.dto';
+import { MakeVehicleType, VehicleMake, VehicleModel, VehicleType } from '../../domain/models';
+import { NhtsaMakeDto, NhtsaModelDto, NhtsaVehicleTypeDto } from '../http/dtos/nhtsa-api.dto';
 
 /**
  * Adaptador para transformar DTOs de la API NHTSA a entidades de dominio

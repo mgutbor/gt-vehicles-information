@@ -1,16 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import {
-  GET_MAKES_USE_CASE,
-  SEARCH_MAKES_USE_CASE,
-} from '@app/core/domain/ports/inbound';
+import { GET_MAKES_USE_CASE, SEARCH_MAKES_USE_CASE } from '@app/core/domain/ports/inbound';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import {
-  catchError,
-  distinctUntilChanged,
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { catchError, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { MakesActions } from './makes.actions';
 
 /**

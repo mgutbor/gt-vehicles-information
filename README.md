@@ -1,4 +1,4 @@
-# 🚗 GT VEHICLE INFORMATION
+# GT VEHICLE INFORMATION
 
 [![Angular](https://img.shields.io/badge/Angular-19-red?style=for-the-badge&logo=angular)](https://angular.dev)
 [![NgRx](https://img.shields.io/badge/NgRx-19-purple?style=for-the-badge&logo=ngrx)](https://ngrx.io)
@@ -10,25 +10,26 @@
 
 ---
 
-## 📋 Tabla de Contenidos
+## Tabla de Contenidos
 
-- [✨ Características](#-características)
-- [🏗️ Arquitectura](#️-arquitectura)
-- [🛠️ Stack Tecnológico](#️-stack-tecnológico)
-- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
-- [🚀 Instalación y Ejecución](#-instalación-y-ejecución)
-- [🧪 Testing](#-testing)
-- [🎯 Decisiones de Diseño](#-decisiones-de-diseño)
-- [🔄 Flujo de Datos](#-flujo-de-datos)
-- [⚡ Optimizaciones](#-optimizaciones)
-- [📊 Gestión de Estado](#-gestión-de-estado)
-- [🎨 Componentes](#-componentes)
-- [📡 API Integration](#-api-integration)
-- [🔮 Mejoras Futuras](#-mejoras-futuras)
+- [Características](#características)
+- [Arquitectura](#arquitectura)
+- [Stack Tecnológico](#stack-tecnológico)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Instalación y Ejecución](#instalación-y-ejecución)
+- [Testing](#testing)
+- [Decisiones de Diseño](#decisiones-de-diseño)
+- [Flujo de Datos](#flujo-de-datos)
+- [Optimizaciones](#optimizaciones)
+- [Gestión de Estado](#gestión-de-estado)
+- [Componentes](#componentes)
+- [API Integration](#api-integration)
+- [Buenas prácticas](#buenas-prácticas)
+- [Mejoras Futuras](#mejoras-futuras)
 
 ---
 
-## ✨ Características
+## Características
 
 ### Funcionalidades Principales
 
@@ -54,7 +55,7 @@
 
 ---
 
-## 🏗️ Arquitectura
+## Arquitectura
 
 ### Arquitectura Hexagonal (Clean Architecture)
 
@@ -166,7 +167,7 @@ Las dependencias apuntan hacia abstracciones:
 
 ---
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 ### Core
 
@@ -208,7 +209,7 @@ Las dependencias apuntan hacia abstracciones:
 
 ---
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 vehicle-info-spa/
@@ -376,7 +377,7 @@ vehicle-info-spa/
 
 ---
 
-## 🚀 Instalación y Ejecución
+## Instalación y Ejecución
 
 ### Requisitos Previos
 
@@ -430,7 +431,7 @@ npx webpack-bundle-analyzer dist/vehicle-info-spa/stats.json
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Estrategia de Testing
 
@@ -492,24 +493,24 @@ ng test --watch=false --browsers=ChromeHeadless
 ### Ejemplo de Test
 
 ```typescript
-describe("MakesSearchComponent", () => {
-  it("should emit search event after debounce", fakeAsync(() => {
-    let emittedValue = "";
+describe('MakesSearchComponent', () => {
+  it('should emit search event after debounce', fakeAsync(() => {
+    let emittedValue = '';
     component.search.subscribe((value) => {
       emittedValue = value;
     });
 
-    component.searchControl.setValue("BMW");
+    component.searchControl.setValue('BMW');
     tick(500); // Simular 500ms de espera
 
-    expect(emittedValue).toBe("BMW");
+    expect(emittedValue).toBe('BMW');
   }));
 });
 ```
 
 ---
 
-## 🎯 Decisiones de Diseño
+## Decisiones de Diseño
 
 ### 1. Arquitectura Hexagonal
 
@@ -613,7 +614,7 @@ ngOnInit(): void {
 
 ---
 
-## 🔄 Flujo de Datos
+## Flujo de Datos
 
 ### Flujo de Búsqueda de Marcas
 
@@ -768,7 +769,7 @@ ngOnInit(): void {
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## ⚡ Optimizaciones
+## Optimizaciones
 
 ### 1. Sistema de Caché con TTL
 
@@ -828,10 +829,14 @@ export class InMemoryCacheRepository implements CacheRepository {
 ### 3. Selectores Memoizados
 
 ```typescript
-export const selectFilteredMakes = createSelector(selectAllMakes, selectSearchQuery, (makes, query) => {
-  if (!query) return makes;
-  return makes.filter((m) => m.name.toLowerCase().includes(query.toLowerCase()));
-});
+export const selectFilteredMakes = createSelector(
+  selectAllMakes,
+  selectSearchQuery,
+  (makes, query) => {
+    if (!query) return makes;
+    return makes.filter((m) => m.name.toLowerCase().includes(query.toLowerCase()));
+  }
+);
 ```
 
 **Ventajas:**
@@ -845,8 +850,9 @@ export const selectFilteredMakes = createSelector(selectAllMakes, selectSearchQu
 ```typescript
 export const routes: Routes = [
   {
-    path: "make/:id",
-    loadComponent: () => import("./features/make-detail/...").then((m) => m.MakeDetailPageComponent),
+    path: 'make/:id',
+    loadComponent: () =>
+      import('./features/make-detail/...').then((m) => m.MakeDetailPageComponent),
   },
 ];
 ```
@@ -895,7 +901,7 @@ ngOnInit(): void {
 
 ---
 
-## 📊 Gestión de Estado
+## Gestión de Estado
 
 ### Estructura del State
 
@@ -932,16 +938,16 @@ export interface MakeDetailState {
 ```typescript
 // ✅ BIEN: Acciones descriptivas y separadas
 export const MakesActions = createActionGroup({
-  source: "Makes",
+  source: 'Makes',
   events: {
     // User Events
-    "Load Makes": emptyProps(),
-    "Search Makes": props(),
-    "Select Make": props(),
+    'Load Makes': emptyProps(),
+    'Search Makes': props(),
+    'Select Make': props(),
 
     // API Events
-    "Load Makes Success": props(),
-    "Load Makes Failure": props(),
+    'Load Makes Success': props(),
+    'Load Makes Failure': props(),
   },
 });
 ```
@@ -982,10 +988,10 @@ loadMakes$ = createEffect(() =>
       this.getMakesUseCase.execute().pipe(
         map((makes) => MakesActions.loadMakesSuccess({ makes })),
         catchError((error) => {
-          console.error("Error loading makes:", error);
+          console.error('Error loading makes:', error);
           return of(
             MakesActions.loadMakesFailure({
-              error: "Failed to load vehicle makes",
+              error: 'Failed to load vehicle makes',
             })
           );
         })
@@ -1009,11 +1015,15 @@ export const selectAllMakes = createSelector(selectMakesState, selectAll);
 
 export const selectSearchQuery = createSelector(selectMakesState, (state) => state.searchQuery);
 
-export const selectFilteredMakes = createSelector(selectAllMakes, selectSearchQuery, (makes, query) => {
-  if (!query) return makes;
-  const lowerQuery = query.toLowerCase();
-  return makes.filter((make) => make.name.toLowerCase().includes(lowerQuery));
-});
+export const selectFilteredMakes = createSelector(
+  selectAllMakes,
+  selectSearchQuery,
+  (makes, query) => {
+    if (!query) return makes;
+    const lowerQuery = query.toLowerCase();
+    return makes.filter((make) => make.name.toLowerCase().includes(lowerQuery));
+  }
+);
 
 export const selectMakesLoading = createSelector(selectMakesState, (state) => state.loading);
 
@@ -1022,7 +1032,7 @@ export const selectMakesError = createSelector(selectMakesState, (state) => stat
 
 ---
 
-## 🎨 Componentes
+## Componentes
 
 ### Jerarquía de Componentes
 
@@ -1048,7 +1058,7 @@ App Component
 
 ```typescript
 @Component({
-  selector: "app-makes-page",
+  selector: 'app-makes-page',
   standalone: true,
   // Conectado al Store vía ViewModel
 })
@@ -1065,7 +1075,7 @@ export class MakesPageComponent {
   }
 
   onSelectMake(make: VehicleMake): void {
-    this.router.navigate(["/make", make.id]);
+    this.router.navigate(['/make', make.id]);
   }
 }
 ```
@@ -1082,7 +1092,7 @@ export class MakesPageComponent {
 
 ```typescript
 @Component({
-  selector: "app-makes-list",
+  selector: 'app-makes-list',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -1138,17 +1148,18 @@ export class MakesListComponent {
 
 ---
 
-## 📡 API Integration
+## API Integration
 
 ### NHTSA API Endpoints
 
 ```typescript
 export const API_CONFIG = {
-  BASE_URL: "https://vpic.nhtsa.dot.gov/api/vehicles",
+  BASE_URL: 'https://vpic.nhtsa.dot.gov/api/vehicles',
   ENDPOINTS: {
-    getAllMakes: "/GetAllMakes?format=json",
+    getAllMakes: '/GetAllMakes?format=json',
     getVehicleTypes: (makeId: number) => `/GetVehicleTypesForMakeId/${makeId}?format=json`,
-    getModels: (makeId: number, year: number) => `/GetModelsForMakeIdYear/makeId/${makeId}/modelyear/${year}?format=json`,
+    getModels: (makeId: number, year: number) =>
+      `/GetModelsForMakeIdYear/makeId/${makeId}/modelyear/${year}?format=json`,
   },
 };
 ```
@@ -1209,17 +1220,58 @@ getAllMakes(): Observable {
 
 ---
 
+## Buenas prácticas
+
+Este proyecto incorpora **ESLint con reglas personalizadas** y **Prettier** para asegurar un código limpio, coherente y mantenible. A continuación se resumen las prácticas recomendadas:
+
+### 1. Código consistente con ESLint
+
+- Todas las reglas activas garantizan un estilo homogéneo y previenen errores comunes.
+- Antes de subir código, ejecuta:
+  ```bash
+    npm run lint
+  ```
+- Para autocorregir lo posible:
+  ```bash
+    npm run lint:fix
+  ```
+
+### 2. Formateo de código automático con Prettier
+
+- Todos los archivos tendrán un formato uniforme.
+- Antes de subir código, se formatea el proyecto con:
+  ```bash
+    npm run format:check
+  ```
+- Para autocorregir los errores:
+  ```bash
+    npm run format
+  ```
+
+### 3. Flujo recomendado antes de un commit
+
+- Antes de subir código, ejecuta:
+  ```bash
+    npm run lint && npm run format:check
+  ```
+  y comprueba que no hay errores en el proyecto.
+
+### 4. Mantenimiento de reglas
+
+- ESLint y Prettier deben mantenerse actualizados.
+- Si una regla causa ruido o bloquea un caso válido, se discute a nivel de equipo y se ajusta en la configuración central, **nunca mediante excepciones locales**.
+
+---
+
 ## Mejoras Futuras
 
 ### Corto Plazo
 
 - **Persistencia Local**
-
   - IndexedDB para caché offline
   - Service Worker para funcionamiento sin red
 
 - **Filtros Avanzados**
-
   - Filtro por tipo de vehículo
   - Rango de años múltiple
   - Ordenamiento personalizable
@@ -1231,19 +1283,16 @@ getAllMakes(): Observable {
 ### Medio Plazo
 
 - **Internacionalización (i18n)**
-
   - Soporte multi-idioma
   - Traducción de textos
   - Formateo de fechas/números
 
 - **Tematización**
-
   - Modo oscuro
   - Temas personalizables
   - Preferencias guardadas
 
 - **PWA Completa**
-
   - Instalable en dispositivos
   - Notificaciones push
   - Actualizaciones automáticas
@@ -1256,13 +1305,11 @@ getAllMakes(): Observable {
 ### Largo Plazo
 
 - **Machine Learning**
-
   - Recomendaciones personalizadas
   - Predicción de búsquedas
   - Auto-completado inteligente
 
 - **API Propia**
-
   - Backend propio con GraphQL
   - Agregación de múltiples fuentes
   - Datos enriquecidos

@@ -37,10 +37,7 @@ export class VehicleModelsComponent {
   yearSelected = output<number | null>();
 
   // Generar años disponibles (últimos 30 años)
-  readonly availableYears = Array.from(
-    { length: 30 },
-    (_, i) => new Date().getFullYear() - i
-  );
+  readonly availableYears = Array.from({ length: 30 }, (_, i) => new Date().getFullYear() - i);
 
   onYearChange(year: number | null): void {
     this.yearSelected.emit(year);

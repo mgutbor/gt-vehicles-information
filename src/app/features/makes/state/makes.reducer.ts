@@ -19,11 +19,10 @@ export interface MakesState extends EntityState<VehicleMake> {
  * Entity Adapter para gestión eficiente de colecciones
  * Proporciona métodos CRUD optimizados
  */
-export const makesAdapter: EntityAdapter<VehicleMake> =
-  createEntityAdapter<VehicleMake>({
-    selectId: (make) => make.id,
-    sortComparer: (a, b) => a.name.localeCompare(b.name), // Ordenar alfabéticamente
-  });
+export const makesAdapter: EntityAdapter<VehicleMake> = createEntityAdapter<VehicleMake>({
+  selectId: (make) => make.id,
+  sortComparer: (a, b) => a.name.localeCompare(b.name), // Ordenar alfabéticamente
+});
 
 /**
  * Estado inicial
@@ -63,9 +62,7 @@ export const makesReducer = createReducer(
       loadingState: LoadingState.SUCCESS,
       error: null,
       // Si no hay búsqueda activa, mostrar todas las marcas
-      filteredMakeIds: state.searchQuery
-        ? state.filteredMakeIds
-        : makes.map((m) => m.id),
+      filteredMakeIds: state.searchQuery ? state.filteredMakeIds : makes.map((m) => m.id),
     };
   }),
 

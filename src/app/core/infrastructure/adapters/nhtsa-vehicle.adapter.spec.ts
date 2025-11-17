@@ -1,8 +1,4 @@
-import {
-  NhtsaMakeDto,
-  NhtsaModelDto,
-  NhtsaVehicleTypeDto,
-} from '../http/dtos/nhtsa-api.dto';
+import { NhtsaMakeDto, NhtsaModelDto, NhtsaVehicleTypeDto } from '../http/dtos/nhtsa-api.dto';
 import { NhtsaVehicleAdapter } from './nhtsa-vehicle.adapter';
 
 describe('NhtsaVehicleAdapter', () => {

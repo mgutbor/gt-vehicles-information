@@ -1,8 +1,4 @@
-import {
-  MakeVehicleType,
-  VehicleMake,
-  VehicleModel,
-} from '@app/core/domain/models';
+import { MakeVehicleType, VehicleMake, VehicleModel } from '@app/core/domain/models';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 /**

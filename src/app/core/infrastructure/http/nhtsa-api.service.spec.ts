@@ -1,8 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { NhtsaApiService } from './nhtsa-api.service';
 
@@ -12,11 +9,7 @@ describe('NhtsaApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        NhtsaApiService,
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting(), NhtsaApiService],
     });
     service = TestBed.inject(NhtsaApiService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -46,9 +39,7 @@ describe('NhtsaApiService', () => {
       expect(response.Results.length).toBe(2);
     });
 
-    const req = httpMock.expectOne((request) =>
-      request.url.includes('GetAllMakes')
-    );
+    const req = httpMock.expectOne((request) => request.url.includes('GetAllMakes'));
     expect(req.request.method).toBe('GET');
     req.flush(mockResponse);
   });

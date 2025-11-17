@@ -1,15 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {
-  MakeDetailState,
-  modelsAdapter,
-  vehicleTypesAdapter,
-} from './make-detail.reducer';
+import { MakeDetailState, modelsAdapter, vehicleTypesAdapter } from './make-detail.reducer';
 
 /**
  * Feature selector
  */
-export const selectMakeDetailState =
-  createFeatureSelector<MakeDetailState>('makeDetail');
+export const selectMakeDetailState = createFeatureSelector<MakeDetailState>('makeDetail');
 
 /**
  * Make selectors
@@ -24,10 +19,7 @@ export const selectMakeDetailLoadingState = createSelector(
   (state) => state.loadingState
 );
 
-export const selectMakeDetailError = createSelector(
-  selectMakeDetailState,
-  (state) => state.error
-);
+export const selectMakeDetailError = createSelector(selectMakeDetailState, (state) => state.error);
 
 /**
  * Vehicle Types selectors
@@ -37,11 +29,8 @@ export const selectVehicleTypesState = createSelector(
   (state) => state.vehicleTypes
 );
 
-const {
-  selectAll: selectAllVehicleTypesFromAdapter,
-  selectEntities: selectVehicleTypesEntities,
-  selectTotal: selectTotalVehicleTypes,
-} = vehicleTypesAdapter.getSelectors(selectVehicleTypesState);
+const { selectAll: selectAllVehicleTypesFromAdapter } =
+  vehicleTypesAdapter.getSelectors(selectVehicleTypesState);
 
 export const selectAllVehicleTypes = selectAllVehicleTypesFromAdapter;
 
@@ -58,33 +47,17 @@ export const selectVehicleTypesError = createSelector(
 /**
  * Models selectors
  */
-export const selectModelsState = createSelector(
-  selectMakeDetailState,
-  (state) => state.models
-);
+export const selectModelsState = createSelector(selectMakeDetailState, (state) => state.models);
 
-const {
-  selectAll: selectAllModelsFromAdapter,
-  selectEntities: selectModelsEntities,
-  selectTotal: selectTotalModels,
-} = modelsAdapter.getSelectors(selectModelsState);
+const { selectAll: selectAllModelsFromAdapter } = modelsAdapter.getSelectors(selectModelsState);
 
 export const selectAllModels = selectAllModelsFromAdapter;
 
-export const selectModelsLoading = createSelector(
-  selectModelsState,
-  (state) => state.loading
-);
+export const selectModelsLoading = createSelector(selectModelsState, (state) => state.loading);
 
-export const selectModelsError = createSelector(
-  selectModelsState,
-  (state) => state.error
-);
+export const selectModelsError = createSelector(selectModelsState, (state) => state.error);
 
-export const selectSelectedYear = createSelector(
-  selectModelsState,
-  (state) => state.selectedYear
-);
+export const selectSelectedYear = createSelector(selectModelsState, (state) => state.selectedYear);
 
 /**
  * Combined ViewModel selector
@@ -98,16 +71,7 @@ export const selectMakeDetailViewModel = createSelector(
   selectModelsLoading,
   selectSelectedYear,
   selectMakeDetailError,
-  (
-    make,
-    loadingState,
-    vehicleTypes,
-    typesLoading,
-    models,
-    modelsLoading,
-    selectedYear,
-    error
-  ) => ({
+  (make, loadingState, vehicleTypes, typesLoading, models, modelsLoading, selectedYear, error) => ({
     make,
     loadingState,
     vehicleTypes,

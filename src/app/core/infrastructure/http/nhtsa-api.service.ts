@@ -36,9 +36,7 @@ export class NhtsaApiService {
   /**
    * Obtiene los tipos de vehículos para una marca específica
    */
-  getVehicleTypesForMake(
-    makeId: number
-  ): Observable<NhtsaVehicleTypesResponse> {
+  getVehicleTypesForMake(makeId: number): Observable<NhtsaVehicleTypesResponse> {
     const url = ApiUrlBuilder.build({
       endpoint: 'getVehicleTypesForMake',
       pathParams: { makeId },
@@ -46,11 +44,7 @@ export class NhtsaApiService {
 
     return this.http
       .get<NhtsaVehicleTypesResponse>(url)
-      .pipe(
-        timeout(this.config.timeout),
-        retry(2),
-        catchError(this.handleError)
-      );
+      .pipe(timeout(this.config.timeout), retry(2), catchError(this.handleError));
   }
 
   /**
@@ -64,32 +58,19 @@ export class NhtsaApiService {
 
     return this.http
       .get<NhtsaModelsResponse>(url)
-      .pipe(
-        timeout(this.config.timeout),
-        retry(2),
-        catchError(this.handleError)
-      );
+      .pipe(timeout(this.config.timeout), retry(2), catchError(this.handleError));
   }
 
   /**
    * Obtiene los modelos para una marca y año específicos
    * La API NHTSA requiere formato: /GetModelsForMakeYear/makeId/{makeId}/modelyear/{year}
    */
-  getModelsForMakeYear(
-    makeId: number,
-    year: number
-  ): Observable<NhtsaModelsResponse> {
+  getModelsForMakeYear(makeId: number, year: number): Observable<NhtsaModelsResponse> {
     const url = `${this.config.baseUrl}/GetModelsForMakeIdYear/makeId/${makeId}/modelyear/${year}?format=${this.config.defaultFormat}`;
-
-    console.log('🔍 Fetching models for year:', { makeId, year, url });
 
     return this.http
       .get<NhtsaModelsResponse>(url)
-      .pipe(
-        timeout(this.config.timeout),
-        retry(2),
-        catchError(this.handleError)
-      );
+      .pipe(timeout(this.config.timeout), retry(2), catchError(this.handleError));
   }
 
   /**

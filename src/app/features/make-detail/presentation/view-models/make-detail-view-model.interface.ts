@@ -1,9 +1,4 @@
-import {
-  LoadingState,
-  MakeVehicleType,
-  VehicleMake,
-  VehicleModel,
-} from '@app/core/domain/models';
+import { LoadingState, MakeVehicleType, VehicleMake, VehicleModel } from '@app/core/domain/models';
 
 /**
  * Interface para el ViewModel de Make Detail

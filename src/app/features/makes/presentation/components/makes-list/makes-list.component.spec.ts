@@ -50,8 +50,7 @@ describe('MakesListComponent', () => {
     fixture.componentRef.setInput('error', 'Test error');
     fixture.detectChanges();
 
-    const errorContainer =
-      fixture.nativeElement.querySelector('.error-container');
+    const errorContainer = fixture.nativeElement.querySelector('.error-container');
     expect(errorContainer).toBeTruthy();
     expect(errorContainer.textContent).toContain('Test error');
   });
@@ -62,8 +61,7 @@ describe('MakesListComponent', () => {
     fixture.componentRef.setInput('error', null);
     fixture.detectChanges();
 
-    const emptyContainer =
-      fixture.nativeElement.querySelector('.empty-container');
+    const emptyContainer = fixture.nativeElement.querySelector('.empty-container');
     expect(emptyContainer).toBeTruthy();
     expect(emptyContainer.textContent).toContain('No vehicle makes found');
   });
@@ -110,6 +108,7 @@ describe('MakesListComponent', () => {
       scrollToIndex: jasmine.createSpy('scrollToIndex'),
     };
 
+    // eslint-disable-next-line
     component.viewport = mockViewport as any;
     component.scrollToTop();
 

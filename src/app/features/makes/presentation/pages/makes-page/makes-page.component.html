@@ -6,25 +6,25 @@
   <div class="page-content">
     <mat-card class="search-card">
       @if (viewModel$ | async; as vm) {
-      <app-makes-search
-        [searchQuery]="vm.searchQuery"
-        [disabled]="vm.loading"
-        (search)="onSearch($event)"
-        (clear)="onClearSearch()"
-      />
+        <app-makes-search
+          [searchQuery]="vm.searchQuery"
+          [disabled]="vm.loading"
+          (search)="onSearch($event)"
+          (clear)="onClearSearch()"
+        />
       }
     </mat-card>
 
     <mat-card class="list-card">
       @if (viewModel$ | async; as vm) {
-      <app-makes-list
-        [makes]="vm.makes"
-        [loading]="vm.loading"
-        [error]="vm.error"
-        [searchQuery]="vm.searchQuery"
-        (makeSelected)="onMakeSelected($event)"
-        (retry)="onRetry()"
-      />
+        <app-makes-list
+          [makes]="vm.makes"
+          [loading]="vm.loading"
+          [error]="vm.error"
+          [searchQuery]="vm.searchQuery"
+          (makeSelected)="onMakeSelected($event)"
+          (retry)="onRetry()"
+        />
       }
     </mat-card>
   </div>
