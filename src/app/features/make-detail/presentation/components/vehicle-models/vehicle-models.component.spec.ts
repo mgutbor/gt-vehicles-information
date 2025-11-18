@@ -122,4 +122,92 @@ describe('VehicleModelsComponent', () => {
     expect(component.availableYears.length).toBe(30);
     expect(component.availableYears[0]).toBe(new Date().getFullYear());
   });
+
+  it('should show clear filters button', () => {
+    fixture.componentRef.setInput('models', mockModels);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
+    fixture.componentRef.setInput('selectedYear', 2024);
+    fixture.detectChanges();
+
+    const button = fixture.nativeElement.querySelector('.clear-filters-button');
+    expect(button).toBeTruthy();
+    expect(button.textContent).toContain('Clear Filters');
+  });
+
+  it('should disable clear filters button when no filters are active', () => {
+    fixture.componentRef.setInput('models', mockModels);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
+    fixture.componentRef.setInput('selectedYear', null);
+    fixture.componentRef.setInput('selectedVehicleTypeId', null);
+    fixture.detectChanges();
+
+    const button = fixture.nativeElement.querySelector('.clear-filters-button');
+    expect(button.disabled).toBe(true);
+  });
+
+  it('should enable clear filters button when year filter is active', () => {
+    fixture.componentRef.setInput('models', mockModels);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
+    fixture.componentRef.setInput('selectedYear', 2024);
+    fixture.componentRef.setInput('selectedVehicleTypeId', null);
+    fixture.detectChanges();
+
+    const button = fixture.nativeElement.querySelector('.clear-filters-button');
+    expect(button.disabled).toBe(false);
+  });
+
+  it('should enable clear filters button when vehicle type filter is active', () => {
+    fixture.componentRef.setInput('models', mockModels);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
+    fixture.componentRef.setInput('selectedYear', null);
+    fixture.componentRef.setInput('selectedVehicleTypeId', 2);
+    fixture.detectChanges();
+
+    const button = fixture.nativeElement.querySelector('.clear-filters-button');
+    expect(button.disabled).toBe(false);
+  });
+
+  it('should emit clearFilters event when clear button is clicked', () => {
+    spyOn(component.clearFilters, 'emit');
+    
+    fixture.componentRef.setInput('models', mockModels);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
+    fixture.componentRef.setInput('selectedYear', 2024);
+    fixture.detectChanges();
+
+    const button = fixture.nativeElement.querySelector('.clear-filters-button');
+    button.click();
+
+    expect(component.clearFilters.emit).toHaveBeenCalled();
+  });
+
+  it('should return true from hasActiveFilters when year is selected', () => {
+    fixture.componentRef.setInput('models', mockModels);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
+    fixture.componentRef.setInput('selectedYear', 2024);
+    fixture.componentRef.setInput('selectedVehicleTypeId', null);
+    fixture.detectChanges();
+
+    expect(component.hasActiveFilters()).toBe(true);
+  });
+
+  it('should return true from hasActiveFilters when vehicle type is selected', () => {
+    fixture.componentRef.setInput('models', mockModels);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
+    fixture.componentRef.setInput('selectedYear', null);
+    fixture.componentRef.setInput('selectedVehicleTypeId', 2);
+    fixture.detectChanges();
+
+    expect(component.hasActiveFilters()).toBe(true);
+  });
+
+  it('should return false from hasActiveFilters when no filters are selected', () => {
+    fixture.componentRef.setInput('models', mockModels);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
+    fixture.componentRef.setInput('selectedYear', null);
+    fixture.componentRef.setInput('selectedVehicleTypeId', null);
+    fixture.detectChanges();
+
+    expect(component.hasActiveFilters()).toBe(false);
+  });
 });

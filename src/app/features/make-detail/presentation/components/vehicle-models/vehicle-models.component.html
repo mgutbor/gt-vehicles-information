@@ -1,8 +1,22 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      <mat-icon>list</mat-icon>
-      Vehicle Models
+      <div class="title-container">
+        <mat-icon>list</mat-icon>
+        Vehicle Models
+      </div>
+
+      <!-- Clear Filters Button -->
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="onClearFilters()"
+        [disabled]="!hasActiveFilters() || loading()"
+        class="clear-filters-button"
+      >
+        <mat-icon>filter_alt_off</mat-icon>
+        Clear Filters
+      </button>
     </mat-card-title>
   </mat-card-header>
 

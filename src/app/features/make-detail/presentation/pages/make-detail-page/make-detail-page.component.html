@@ -14,7 +14,7 @@
       <button mat-icon-button (click)="goBack()">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <span>{{ vm.make?.name || 'Loading...' }}</span>
+      <span class="span-title">Make Details</span>
     </mat-toolbar>
 
     <div class="page-content">
@@ -49,6 +49,7 @@
             [selectedVehicleTypeId]="vm.selectedVehicleTypeId"
             (yearSelected)="onYearSelected($event)"
             (vehicleTypeSelected)="onVehicleTypeSelected($event)"
+            (clearFilters)="onClearFilters()"
           />
         </div>
       }

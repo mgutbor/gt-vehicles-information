@@ -1,11 +1,19 @@
 mat-card-header {
   margin-bottom: 1rem;
+  display: block;
 }
 
 mat-card-title {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .filters-container {
@@ -13,12 +21,23 @@ mat-card-title {
   gap: 1rem;
   margin-bottom: 1rem;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .filters-container mat-form-field {
   min-width: 200px;
   flex: 1;
   max-width: 300px;
+}
+
+.clear-filters-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  mat-icon {
+    margin-right: 0;
+  }
 }
 
 .loading-container,
@@ -52,15 +71,32 @@ mat-card-title {
   border-radius: 4px;
 }
 
+mat-list {
+  padding: 0 !important;
+}
+
+mat-list-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  height: 72px !important;
+  padding: 0 !important;
+}
+
+mat-list-item:last-child {
+  border-bottom: none;
+}
+
 .model-content {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  padding: 0.5rem 0;
+  padding: 1rem;
+  width: 100%;
 }
 
 .model-name {
   font-weight: 500;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .model-id {

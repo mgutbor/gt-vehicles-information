@@ -1,6 +1,7 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,6 +25,7 @@ import { MakeVehicleType, VehicleModel } from '@app/core/domain/models';
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatButtonModule,
     ScrollingModule,
   ],
   templateUrl: './vehicle-models.component.html',
@@ -38,6 +40,7 @@ export class VehicleModelsComponent {
 
   yearSelected = output<number | null>();
   vehicleTypeSelected = output<number | null>();
+  clearFilters = output<void>();
 
   // Generar años disponibles (últimos 30 años)
   readonly availableYears = Array.from({ length: 30 }, (_, i) => new Date().getFullYear() - i);
@@ -48,5 +51,13 @@ export class VehicleModelsComponent {
 
   onVehicleTypeChange(vehicleTypeId: number | null): void {
     this.vehicleTypeSelected.emit(vehicleTypeId);
+  }
+
+  onClearFilters(): void {
+    this.clearFilters.emit();
+  }
+
+  hasActiveFilters(): boolean {
+    return this.selectedYear() !== null || this.selectedVehicleTypeId() !== null;
   }
 }

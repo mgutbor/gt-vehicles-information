@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -38,6 +39,7 @@ export class MakeDetailPageComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly store = inject(Store);
+  private readonly titleService = inject(Title);
   private readonly viewModel = inject(MakeDetailViewModel);
   private readonly destroy$ = new Subject<void>();
 
@@ -45,6 +47,7 @@ export class MakeDetailPageComponent implements OnInit, OnDestroy {
   readonly LoadingState = LoadingState;
 
   private currentMakeId: number | null = null;
+  private readonly baseTitle = 'GT Vehicle Information';
   isNavigatingBack = false;
 
   ngOnInit(): void {
@@ -56,9 +59,18 @@ export class MakeDetailPageComponent implements OnInit, OnDestroy {
         this.viewModel.loadMakeDetail(makeId);
       }
     });
+
+    // Actualizar el título cuando se carga el make
+    this.viewModel$.pipe(takeUntil(this.destroy$)).subscribe((vm) => {
+      if (vm.make) {
+        this.titleService.setTitle(`${this.baseTitle} | ${vm.make.name}`);
+      }
+    });
   }
 
   ngOnDestroy(): void {
+    // Restaurar el título original al salir
+    this.titleService.setTitle(this.baseTitle);
     this.destroy$.next();
     this.destroy$.complete();
     this.viewModel.clearMakeDetail();
@@ -100,6 +112,12 @@ export class MakeDetailPageComponent implements OnInit, OnDestroy {
       } else {
         this.viewModel.loadModelsByVehicleType(this.currentMakeId, vehicleTypeId);
       }
+    }
+  }
+
+  onClearFilters(): void {
+    if (this.currentMakeId) {
+      this.viewModel.loadModels(this.currentMakeId);
     }
   }
 }
