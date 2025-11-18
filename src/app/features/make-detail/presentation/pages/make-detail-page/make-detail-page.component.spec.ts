@@ -62,10 +62,15 @@ describe('MakeDetailPageComponent', () => {
     expect(component.LoadingState.IDLE).toBe(LoadingState.IDLE);
   });
 
-  it('should navigate back when goBack is called', () => {
+  it('should navigate back when goBack is called', (done) => {
     spyOn(component['router'], 'navigate');
     component.goBack();
-    expect(component['router'].navigate).toHaveBeenCalledWith(['/makes']);
+    
+    // La navegación ocurre después de 400ms debido al overlay de loading
+    setTimeout(() => {
+      expect(component['router'].navigate).toHaveBeenCalledWith(['/makes']);
+      done();
+    }, 450);
   });
 
   it('should have retry method', () => {

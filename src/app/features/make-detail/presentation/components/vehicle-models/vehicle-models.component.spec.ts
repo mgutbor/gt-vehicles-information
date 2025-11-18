@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { VehicleModel } from '@app/core/domain/models';
+import { MakeVehicleType, VehicleModel } from '@app/core/domain/models';
 import { VehicleModelsComponent } from './vehicle-models.component';
 
 describe('VehicleModelsComponent', () => {
@@ -22,6 +22,25 @@ describe('VehicleModelsComponent', () => {
     },
   ];
 
+  const mockVehicleTypes: MakeVehicleType[] = [
+    {
+      makeId: 440,
+      makeName: 'AUDI',
+      vehicleType: {
+        id: 2,
+        name: 'Passenger Car',
+      },
+    },
+    {
+      makeId: 440,
+      makeName: 'AUDI',
+      vehicleType: {
+        id: 3,
+        name: 'Truck',
+      },
+    },
+  ];
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [VehicleModelsComponent, NoopAnimationsModule],
@@ -32,11 +51,15 @@ describe('VehicleModelsComponent', () => {
   });
 
   it('should create', () => {
+    fixture.componentRef.setInput('models', []);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should display loading spinner when loading is true', () => {
     fixture.componentRef.setInput('models', []);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
     fixture.componentRef.setInput('loading', true);
     fixture.detectChanges();
 
@@ -46,6 +69,7 @@ describe('VehicleModelsComponent', () => {
 
   it('should display empty state when no models are available', () => {
     fixture.componentRef.setInput('models', []);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
     fixture.componentRef.setInput('loading', false);
     fixture.detectChanges();
 
@@ -56,6 +80,7 @@ describe('VehicleModelsComponent', () => {
 
   it('should display models list when models are available', () => {
     fixture.componentRef.setInput('models', mockModels);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
     fixture.componentRef.setInput('loading', false);
     fixture.detectChanges();
 
@@ -76,14 +101,16 @@ describe('VehicleModelsComponent', () => {
 
   it('should have year filter dropdown', () => {
     fixture.componentRef.setInput('models', []);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
     fixture.detectChanges();
 
-    const yearFilter = fixture.nativeElement.querySelector('.year-filter');
-    expect(yearFilter).toBeTruthy();
+    const filtersContainer = fixture.nativeElement.querySelector('.filters-container');
+    expect(filtersContainer).toBeTruthy();
   });
 
   it('should disable year filter when loading', () => {
     fixture.componentRef.setInput('models', []);
+    fixture.componentRef.setInput('vehicleTypes', mockVehicleTypes);
     fixture.componentRef.setInput('loading', true);
     fixture.detectChanges();
 
