@@ -1325,7 +1325,7 @@ Este proyecto incorpora **ESLint con reglas personalizadas** y **Prettier** para
 
 **Manuel Gutiérrez Borrás**
 
-- GitHub: [@tu-usuario](https://github.com/mgutbor)
-- LinkedIn: [Tu Perfil](https://linkedin.com/in/mgutbor)
+- [GitHub](https://github.com/mgutbor)
+- [LinkedIn](https://linkedin.com/in/mgutbor)
 
 ---
